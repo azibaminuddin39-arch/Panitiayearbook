@@ -5,19 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ID Card Panitia Yearbook XXVII - SMAN 3 Banjarbaru</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Library Generator QR Code -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
-
-  <!-- Panel Kontrol Pilih Panitia & Balik Kartu -->
-  <div class="controls">
-    <div class="select-group">
-      <label for="memberSelect">Pilih Nama Panitia:</label>
-      <select id="memberSelect" onchange="updateCardData()">
-        <!-- Option diisi otomatis dari script.js -->
-      </select>
-    </div>
-    <button class="btn-flip" onclick="flipCard()">🔄 Balik Kartu (Depan / Belakang)</button>
-  </div>
 
   <!-- Area ID Card 3D Flip -->
   <div class="card-container">
@@ -93,7 +84,8 @@
             </div>
           </div>
 
-          <div class="qr-section" style="margin: 20px 0;">
+          <div class="qr-section">
+            <div id="qrcode"></div>
             <div class="qr-id" id="backId">YB27-001</div>
           </div>
 
@@ -105,6 +97,9 @@
 
     </div>
   </div>
+
+  <!-- Tombol Balik Kartu di Bawah ID Card -->
+  <button class="btn-flip" onclick="flipCard()">🔄 Balik Kartu (Depan / Belakang)</button>
 
   <script src="script.js"></script>
 </body>
