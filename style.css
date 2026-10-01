@@ -606,3 +606,87 @@ body {
   color: #888888;
   margin-top: 10px;
 }
+
+/* Container Utama untuk Memberi Ruang Tali di Atas */
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-top: 100px; /* Jarak dari atas layar untuk tali */
+}
+
+/* --- TALI LANYARD --- */
+.lanyard {
+  position: absolute;
+  top: -90px; /* Posisi menggantung di atas kartu */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 20;
+}
+
+/* Pita Tali */
+.strap {
+  width: 32px;
+  height: 90px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); /* Warna Biru Navy */
+  border-radius: 4px 4px 0 0;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Teks Cetak di Tali (Opsional) */
+.strap::after {
+  content: "PANITIA XXVII";
+  font-size: 8px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.7);
+  writing-mode: vertical-rl;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* --- PENGAIT METAL (CLIP) --- */
+.clip {
+  width: 22px;
+  height: 18px;
+  background: linear-gradient(135deg, #e6e6e6 0%, #8c8c8c 50%, #4d4d4d 100%);
+  border-radius: 3px 3px 6px 6px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  position: relative;
+  margin-top: -2px;
+  z-index: 21;
+}
+
+/* Cincin Pengait Bawah */
+.clip::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border: 3px solid #737373;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+/* --- LUBANG KARTU --- */
+.card-hole {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 8px;
+  background: #2b2b2b; /* Warna gelap ceruk lubang */
+  border-radius: 10px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 1px 1px rgba(255, 255, 255, 0.8);
+  z-index: 15;
+}
