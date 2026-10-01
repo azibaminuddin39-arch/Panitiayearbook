@@ -1,50 +1,6 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-  background-color: #d1d8e0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
-}
-
-/* Panel Kontrol di Atas Kartu */
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 25px;
-  align-items: center;
-  justify-content: center;
-  background: #ffffff;
-  padding: 14px 22px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.controls label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  margin-right: 8px;
-}
-
-.controls select {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  max-width: 250px;
-  outline: none;
-}
-
+/* ==========================================
+   1. RESET & UTAS UTAMA (GLOBAL)
+   ========================================== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -63,277 +19,144 @@ body {
   padding: 20px;
 }
 
+/* ==========================================
+   2. PANEL KONTROL & TOMBOL
+   ========================================== */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 25px;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 14px 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.controls label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-right: 8px;
+}
+
+.controls select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  max-width: 250px;
+  outline: none;
+}
+
 .btn-flip {
   margin-top: 25px;
-  padding: 10px 20px;
-  background-color: #d97706;
-  color: #fff;
+  background-color: #3d0c08;
+  color: #ffffff;
   border: none;
+  padding: 10px 20px;
   border-radius: 8px;
-  font-weight: bold;
-  font-size: 14px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .btn-flip:hover {
-  background-color: #b45309;
+  background-color: #5c140d;
+  transform: translateY(-2px);
 }
 
 .btn-flip:active {
   transform: scale(0.98);
 }
 
-/* Card Container & Flip Effect */
-.card-container {
-  perspective: 1000px;
-  width: 320px;
-  height: 520px;
-}
-
-.card {
-  width: 100%;
-  height: 100%;
+/* ==========================================
+   3. VISUAL TALI LANYARD & PENGAIT
+   ========================================== */
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  margin-top: 80px; /* Ruang untuk menggantungkan tali */
 }
 
-.card.flipped {
-  transform: rotateY(180deg);
-}
-
-.card-face {
+.lanyard {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 16px;
+  top: -85px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 20;
+}
+
+.strap {
+  width: 32px;
+  height: 85px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 4px 4px 0 0;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #581c87 0%, #3b0764 100%);
-  border: 2px solid #d97706;
-  display: flex;
-  flex-direction: column;
 }
 
-/* FRONT CARD */
-.header-top {
-  background-color: #3b0764;
-  text-align: center;
-  padding: 8px;
-  border-bottom: 1px solid #d97706;
-}
-
-.header-top h3 {
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: #fef08a;
-}
-
-.header-banner {
-  text-align: center;
-  padding: 12px 10px 5px 10px;
-}
-
-.header-banner h2 {
-  font-size: 18px;
-  color: #fff;
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
-.edition {
-  font-size: 11px;
-  color: #fbbf24;
-  letter-spacing: 4px;
-}
-
-.gold-line {
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #fbbf24, transparent);
-  margin-top: 6px;
-}
-
-.photo-wrapper {
-  display: flex;
-  justify-content: center;
-  margin: 12px 0;
-}
-
-.photo-placeholder {
-  width: 110px;
-  height: 130px;
-  background-color: #1e1b4b;
-  border: 2px solid #fbbf24;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 45px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.content-body {
-  padding: 0 20px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.info-box {
-  text-align: center;
-}
-
-.field-label {
-  font-size: 10px;
-  color: #cbd5e1;
-  margin-bottom: 2px;
-}
-
-.field-value-main {
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
-  margin-bottom: 8px;
-  border-bottom: 1px solid rgba(251, 191, 36, 0.3);
-  padding-bottom: 4px;
-}
-
-.field-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  margin-bottom: 5px;
-}
-
-.field-title {
-  color: #94a3b8;
-}
-
-.field-data {
-  color: #fbbf24;
-  font-weight: 600;
-}
-
-.id-tag {
-  margin-top: 10px;
-  background-color: rgba(0,0,0,0.3);
-  padding: 4px 10px;
-  border-radius: 20px;
-  display: inline-block;
-  font-size: 12px;
-  border: 1px solid #d97706;
-}
-
-.footer-text {
-  font-size: 9px;
-  text-align: center;
-  color: #94a3b8;
-  margin-bottom: 12px;
-}
-
-/* BACK CARD */
-.card-back {
-  transform: rotateY(180deg);
-  background: linear-gradient(135deg, #3b0764 0%, #1e1b4b 100%);
-  padding: 20px;
-  text-align: center;
-}
-
-.back-header h3 {
-  font-size: 14px;
-  color: #fbbf24;
-  letter-spacing: 1px;
-}
-
-.back-header p {
-  font-size: 10px;
-  color: #cbd5e1;
-  margin-bottom: 15px;
-}
-
-.notice-box {
-  background-color: rgba(0, 0, 0, 0.25);
-  border-left: 3px solid #fbbf24;
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 10px;
-  text-align: left;
-  margin-bottom: 15px;
-  color: #e2e8f0;
-  line-height: 1.4;
-}
-
-.details-list {
-  margin-bottom: 15px;
-}
-
-.detail-item {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  padding: 4px 0;
-  border-bottom: 1px dashed rgba(255,255,255,0.1);
-}
-
-.status-active {
-  color: #4ade80;
-  font-weight: bold;
-}
-
-.qr-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px 0;
-}
-
-#qrcode {
-  background: #fff;
-  padding: 6px;
-  border-radius: 6px;
-}
-
-#qrcode img {
-  display: block;
-}
-
-.qr-id {
-  font-size: 11px;
-  margin-top: 5px;
-  color: #fbbf24;
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-
-.stamp-note {
+.strap::after {
+  content: "PANITIA XXVII";
   font-size: 8px;
-  color: #64748b;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.7);
+  writing-mode: vertical-rl;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: auto;
-}
-.btn-flip {
-  background-color: #3d0c08;
-  color: #ffffff;
-  border: none;
-  padding: 9px 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s ease;
 }
 
-.btn-flip:hover {
-  background-color: #5c140d;
-  transform: translateY(-1px);
+.clip {
+  width: 22px;
+  height: 18px;
+  background: linear-gradient(135deg, #e6e6e6 0%, #8c8c8c 50%, #4d4d4d 100%);
+  border-radius: 3px 3px 6px 6px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  position: relative;
+  margin-top: -2px;
+  z-index: 21;
 }
 
-/* Perspektif 3D Balik Kartu */
+.clip::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border: 3px solid #737373;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.card-hole {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 8px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8), 0 1px 1px rgba(255, 255, 255, 0.5);
+  z-index: 15;
+}
+
+/* ==========================================
+   4. KARTU 3D & EFEK ROTASI (FLIP)
+   ========================================== */
 .card-container {
   width: 320px;
   height: 520px;
@@ -352,7 +175,6 @@ body {
   transform: rotateY(180deg);
 }
 
-/* Properti Umum Sisi Depan/Belakang */
 .card-face {
   position: absolute;
   width: 100%;
@@ -360,13 +182,14 @@ body {
   backface-visibility: hidden;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22);
-  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
 }
 
-/* SISI DEPAN (Sesuai Desain Asli) */
+/* ==========================================
+   5. SISI DEPAN (FRONT CARD)
+   ========================================== */
 .card-front {
   background-color: #ffffff;
 }
@@ -374,7 +197,7 @@ body {
 .header-top {
   background-color: #d1d8e0;
   text-align: center;
-  padding: 6px 0;
+  padding: 8px 0 6px 0;
   font-size: 13px;
   font-weight: 800;
   color: #3d0c08;
@@ -385,7 +208,7 @@ body {
   background-color: #3d0c08;
   color: #ffffff;
   text-align: center;
-  padding: 18px 10px 45px 10px;
+  padding: 16px 10px 42px 10px;
   position: relative;
 }
 
@@ -397,7 +220,7 @@ body {
 
 .header-banner .edition {
   color: #d4af37;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
   letter-spacing: 4px;
   display: block;
@@ -407,12 +230,12 @@ body {
 .gold-line {
   height: 3px;
   background: linear-gradient(90deg, #3d0c08, #d4af37, #3d0c08);
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .photo-wrapper {
   position: relative;
-  margin-top: -40px;
+  margin-top: -38px;
   display: flex;
   justify-content: center;
   z-index: 2;
@@ -424,7 +247,7 @@ body {
   border-radius: 50%;
   background-color: #3d0c08;
   border: 4px solid #ffffff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -432,8 +255,8 @@ body {
 }
 
 .photo-placeholder svg {
-  width: 65px;
-  height: 65px;
+  width: 60px;
+  height: 60px;
 }
 
 .content-body {
@@ -447,25 +270,26 @@ body {
 .info-box {
   background-color: #e8ecef;
   border-radius: 12px;
-  padding: 15px;
+  padding: 14px;
 }
 
 .field-label {
-  font-size: 16px;
-  font-weight: 900;
-  color: #000000;
+  font-size: 11px;
+  font-weight: 800;
+  color: #3d0c08;
+  text-transform: uppercase;
 }
 
 .field-value-main {
   font-size: 16px;
   font-weight: bold;
   color: #111111;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   min-height: 22px;
 }
 
 .field-row {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-size: 13px;
 }
 
@@ -485,9 +309,10 @@ body {
   border-radius: 6px;
   padding: 6px;
   text-align: center;
-  margin-top: 12px;
+  margin-top: 10px;
   font-size: 13px;
   color: #3d0c08;
+  font-weight: bold;
 }
 
 .footer-text {
@@ -499,7 +324,9 @@ body {
   margin-top: 10px;
 }
 
-/* SISI BELAKANG (Tema Diselaraskan) */
+/* ==========================================
+   6. SISI BELAKANG (BACK CARD)
+   ========================================== */
 .card-back {
   background-color: #1a0504;
   color: #ffffff;
@@ -508,7 +335,7 @@ body {
 
 .back-header {
   background-color: #3d0c08;
-  padding: 18px 15px;
+  padding: 18px 15px 14px 15px;
   text-align: center;
   border-bottom: 2px solid #d4af37;
 }
@@ -525,7 +352,7 @@ body {
 }
 
 .back-body {
-  padding: 18px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -537,8 +364,6 @@ body {
   border-left: 3px solid #d4af37;
   padding: 10px;
   border-radius: 6px;
-  display: flex;
-  gap: 8px;
   font-size: 11px;
   line-height: 1.4;
   color: #dddddd;
@@ -579,7 +404,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 12px;
 }
 
 #qrcode {
@@ -598,6 +423,7 @@ body {
   margin-top: 6px;
   color: #d4af37;
   letter-spacing: 1px;
+  font-weight: bold;
 }
 
 .stamp-note {
@@ -605,88 +431,4 @@ body {
   font-size: 9px;
   color: #888888;
   margin-top: 10px;
-}
-
-/* Container Utama untuk Memberi Ruang Tali di Atas */
-.card-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  margin-top: 100px; /* Jarak dari atas layar untuk tali */
-}
-
-/* --- TALI LANYARD --- */
-.lanyard {
-  position: absolute;
-  top: -90px; /* Posisi menggantung di atas kartu */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 20;
-}
-
-/* Pita Tali */
-.strap {
-  width: 32px;
-  height: 90px;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); /* Warna Biru Navy */
-  border-radius: 4px 4px 0 0;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-/* Teks Cetak di Tali (Opsional) */
-.strap::after {
-  content: "PANITIA XXVII";
-  font-size: 8px;
-  font-weight: bold;
-  color: rgba(255, 255, 255, 0.7);
-  writing-mode: vertical-rl;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-/* --- PENGAIT METAL (CLIP) --- */
-.clip {
-  width: 22px;
-  height: 18px;
-  background: linear-gradient(135deg, #e6e6e6 0%, #8c8c8c 50%, #4d4d4d 100%);
-  border-radius: 3px 3px 6px 6px;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  position: relative;
-  margin-top: -2px;
-  z-index: 21;
-}
-
-/* Cincin Pengait Bawah */
-.clip::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
-  border: 3px solid #737373;
-  border-radius: 50%;
-  box-sizing: border-box;
-}
-
-/* --- LUBANG KARTU --- */
-.card-hole {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 32px;
-  height: 8px;
-  background: #2b2b2b; /* Warna gelap ceruk lubang */
-  border-radius: 10px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 1px 1px rgba(255, 255, 255, 0.8);
-  z-index: 15;
 }
