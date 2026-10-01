@@ -18,87 +18,36 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 20px;
+  padding: 40px 20px;
 }
 
 /* ==========================================
-   2. PANEL KONTROL & TOMBOL
-   ========================================== */
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 25px;
-  align-items: center;
-  justify-content: center;
-  background: #ffffff;
-  padding: 14px 22px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.controls label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  margin-right: 8px;
-}
-
-.controls select {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  max-width: 250px;
-  outline: none;
-}
-
-.btn-flip {
-  margin-top: 25px;
-  background-color: #3d0c08;
-  color: #ffffff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.btn-flip:hover {
-  background-color: #5c140d;
-  transform: translateY(-2px);
-}
-
-.btn-flip:active {
-  transform: scale(0.98);
-}
-
-/* ==========================================
-   3. VISUAL TALI LANYARD & PENGAIT
+   2. VISUAL TALI LANYARD BERBENTUK V
    ========================================== */
 .card-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  margin-top: 140px; /* Diperbesar agar tali lebih panjang */
+  margin-top: 160px; /* Ruang atas untuk tali berbentuk V */
 }
 
-.lanyard {
+.lanyard-v {
   position: absolute;
-  top: -140px;
+  top: -150px;
+  width: 280px;
+  height: 150px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-end;
   z-index: 20;
 }
 
 .strap {
-  width: 36px;
-  height: 140px;
+  position: absolute;
+  width: 30px;
+  height: 170px;
+  top: -30px;
   background: 
     repeating-linear-gradient(
       45deg,
@@ -110,49 +59,59 @@ body {
     linear-gradient(180deg, #102a43 0%, #1e3c72 50%, #2a5298 100%);
   border-left: 2px dashed rgba(255, 255, 255, 0.3);
   border-right: 2px dashed rgba(255, 255, 255, 0.3);
-  border-radius: 4px 4px 0 0;
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5), 0 8px 16px rgba(0, 0, 0, 0.3);
-  position: relative;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5), 0 6px 12px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-.strap::after {
-  content: "PANITIA XXVII • OFFICIAL";
-  font-size: 9px;
-  font-weight: 800;
-  color: #f1f5f9;
-  writing-mode: vertical-rl;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+.strap-left {
+  left: 60px;
+  transform: rotate(-24deg);
+  transform-origin: bottom right;
+}
+
+.strap-right {
+  right: 60px;
+  transform: rotate(24deg);
+  transform-origin: bottom left;
+}
+
+.ring {
+  position: absolute;
+  bottom: 10px;
+  width: 22px;
+  height: 22px;
+  border: 4px solid #b0b0b0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  z-index: 22;
 }
 
 .clip {
-  width: 26px;
-  height: 20px;
-  background: linear-gradient(135deg, #f3f3f3 0%, #a6a6a6 50%, #595959 100%);
-  border-radius: 4px 4px 6px 6px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.8);
-  position: relative;
-  margin-top: -2px;
-  z-index: 21;
+  position: absolute;
+  bottom: -8px;
+  width: 22px;
+  height: 18px;
+  background: linear-gradient(135deg, #ffffff 0%, #a6a6a6 50%, #595959 100%);
+  border-radius: 3px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  z-index: 23;
 }
 
 .clip::after {
   content: '';
   position: absolute;
-  bottom: -10px;
+  bottom: -8px;
   left: 50%;
   transform: translateX(-50%);
-  width: 14px;
-  height: 14px;
-  border: 3.5px solid #8c8c8c;
+  width: 12px;
+  height: 12px;
+  border: 3px solid #8c8c8c;
   border-radius: 50%;
   box-sizing: border-box;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .card-hole {
@@ -165,11 +124,11 @@ body {
   background: #0f172a;
   border-radius: 10px;
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(255, 255, 255, 0.3);
-  z-index: 15;
+  z-index: 25;
 }
 
 /* ==========================================
-   4. KARTU 3D & EFEK ROTASI (FLIP)
+   3. KARTU 3D & EFEK ROTASI (FLIP)
    ========================================== */
 .card-container {
   width: 320px;
@@ -202,7 +161,7 @@ body {
 }
 
 /* ==========================================
-   5. SISI DEPAN (FRONT CARD)
+   4. SISI DEPAN (FRONT CARD)
    ========================================== */
 .card-front {
   background-color: #ffffff;
@@ -211,7 +170,7 @@ body {
 .header-top {
   background-color: #d1d8e0;
   text-align: center;
-  padding: 8px 0 6px 0;
+  padding: 16px 0 6px 0;
   font-size: 13px;
   font-weight: 800;
   color: #3d0c08;
@@ -266,11 +225,7 @@ body {
   align-items: center;
   justify-content: center;
   color: #ffffff;
-}
-
-.photo-placeholder svg {
-  width: 60px;
-  height: 60px;
+  font-size: 32px;
 }
 
 .content-body {
@@ -341,7 +296,7 @@ body {
 }
 
 /* ==========================================
-   6. SISI BELAKANG (BACK CARD)
+   5. SISI BELAKANG (BACK CARD)
    ========================================== */
 .card-back {
   background-color: #1a0504;
@@ -351,7 +306,7 @@ body {
 
 .back-header {
   background-color: #3d0c08;
-  padding: 18px 15px 14px 15px;
+  padding: 22px 15px 14px 15px;
   text-align: center;
   border-bottom: 2px solid #d4af37;
 }
@@ -447,4 +402,30 @@ body {
   font-size: 9px;
   color: #888888;
   margin-top: 10px;
+}
+
+/* ==========================================
+   6. TOMBOL FLIP
+   ========================================== */
+.btn-flip {
+  margin-top: 25px;
+  background-color: #3d0c08;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-flip:hover {
+  background-color: #5c140d;
+  transform: translateY(-2px);
+}
+
+.btn-flip:active {
+  transform: scale(0.98);
 }
