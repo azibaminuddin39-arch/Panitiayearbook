@@ -562,17 +562,17 @@ body::before {
 .btn-icon {
   font-size: 15px;
   display: inline-block;
+  color: #ffffff;
   transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.8));
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
 }
 
 .btn-text {
   font-size: 13.5px;
   font-weight: 700;
   letter-spacing: 0.8px;
-  background: linear-gradient(180deg, #ffffff 0%, #f1d382 60%, #c5a059 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ffffff; /* Mengubah warna teks menjadi putih */
+  -webkit-text-fill-color: #ffffff; /* Memastikan warna transparan gradasi lama tertimpa */
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
