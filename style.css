@@ -230,7 +230,7 @@ body::before {
 
 /* 5. SISI DEPAN (CLASSIC DARK ELEGANT) */
 .card-front {
-  background-color: #1a1614; /* Dark Obsidian Parchment menggantikan warna putih */
+  background-color: #1a1614;
   border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
@@ -240,13 +240,13 @@ body::before {
   padding: 18px 0 8px 0;
   font-size: 13px;
   font-weight: 800;
-  color: #d4af37; /* Warm Gold */
+  color: #d4af37;
   letter-spacing: 0.8px;
   border-bottom: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 .header-banner {
-  background-color: #3d0c08; /* Rich Dark Burgundy */
+  background-color: #3d0c08;
   color: #ffffff;
   text-align: center;
   padding: 16px 10px 42px 10px;
@@ -306,7 +306,7 @@ body::before {
 }
 
 .info-box {
-  background-color: #25201c; /* Container gelap bertekstur elegan */
+  background-color: #25201c;
   border: 1px solid rgba(212, 175, 55, 0.25);
   border-radius: 12px;
   padding: 14px;
@@ -483,26 +483,116 @@ body::before {
   margin-top: 10px;
 }
 
-/* 7. TOMBOL FLIP */
-.btn-flip {
-  margin-top: 25px;
-  background-color: #3d0c08;
-  color: #ffffff;
-  border: 1px solid #d4af37;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+/* 7. DEKORASI & EFEK TOMBOL BALIK KARTU (CLASSIC ELEGANT) */
+@keyframes goldShimmerSweep {
+  0% {
+    transform: translateX(-150%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(250%) rotate(25deg);
+  }
 }
 
+@keyframes buttonPulseGlow {
+  0%, 100% {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.25);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 22px rgba(212, 175, 55, 0.5);
+  }
+}
+
+.btn-flip {
+  position: relative;
+  margin-top: 30px;
+  padding: 13px 28px;
+  background: linear-gradient(135deg, #2e0805 0%, #1a0302 50%, #3d0c08 100%);
+  border: 1px solid transparent;
+  border-radius: 30px;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  animation: buttonPulseGlow 3.5s infinite ease-in-out;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  background-clip: padding-box;
+  box-sizing: border-box;
+}
+
+/* Bingkai Emas Mengkilap */
+.btn-flip::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 30px;
+  padding: 1.5px;
+  background: linear-gradient(135deg, #f1d382 0%, #b8860b 35%, #ffffff 50%, #d4af37 70%, #5c4308 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Lapisan Kilatan Sinar */
+.btn-shimmer {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 230, 150, 0.35) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  animation: goldShimmerSweep 4.5s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* Konten Isi Tombol */
+.btn-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-icon {
+  font-size: 15px;
+  display: inline-block;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.8));
+}
+
+.btn-text {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  background: linear-gradient(180deg, #ffffff 0%, #f1d382 60%, #c5a059 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Interaksi Hover & Active */
 .btn-flip:hover {
-  background-color: #5c140d;
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.03);
+  background: linear-gradient(135deg, #420a06 0%, #290503 50%, #52100a 100%);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.6);
+}
+
+.btn-flip:hover .btn-icon {
+  transform: rotate(180deg) scale(1.2);
+}
+
+.btn-flip:hover .btn-shimmer {
+  animation-duration: 1.8s;
 }
 
 .btn-flip:active {
-  transform: scale(0.98);
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.4);
 }
