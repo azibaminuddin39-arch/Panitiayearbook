@@ -516,6 +516,11 @@ body::before {
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   background-clip: padding-box;
   box-sizing: border-box;
+  color: #ffffff !important; /* MEMAKSA TEKS TOMBOL MENJADI PUTIH */
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Bingkai Emas Mengkilap */
@@ -557,12 +562,13 @@ body::before {
   display: flex;
   align-items: center;
   gap: 10px;
+  color: #ffffff !important;
 }
 
 .btn-icon {
   font-size: 15px;
   display: inline-block;
-  color: #ffffff;
+  color: #ffffff !important;
   transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
 }
@@ -571,8 +577,8 @@ body::before {
   font-size: 13.5px;
   font-weight: 700;
   letter-spacing: 0.8px;
-  color: #ffffff; /* Mengubah warna teks menjadi putih */
-  -webkit-text-fill-color: #ffffff; /* Memastikan warna transparan gradasi lama tertimpa */
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -582,6 +588,7 @@ body::before {
   transform: translateY(-4px) scale(1.03);
   background: linear-gradient(135deg, #420a06 0%, #290503 50%, #52100a 100%);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.6);
+  color: #ffffff !important;
 }
 
 .btn-flip:hover .btn-icon {
