@@ -7,6 +7,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* BACKGROUND UTAMA: GRADASI ANIMASI BERGERAK (MODERN CLASSIC SIMPLE) */
 body {
   color: #f8fafc;
   display: flex;
@@ -17,21 +18,15 @@ body {
   padding: 40px 20px;
   overflow-x: hidden;
   position: relative;
+  background: linear-gradient(-45deg, #0b0f19, #1a0e1a, #161224, #0d1520);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
 }
 
-/* FIX BACKGROUND ANTI-ZOOM PADA MOBILE */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: 
-    radial-gradient(circle at center, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0.88) 75%, #0f172a 100%),
-    url('tarot idcard.png') center/cover no-repeat;
-  pointer-events: none;
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* 1. ANIMASI AYUNAN PENDULUM HALUS */
@@ -228,14 +223,21 @@ body::before {
   opacity: 1;
 }
 
-/* 5. SISI DEPAN (CLASSIC DARK ELEGANT) */
+/* 5. SISI DEPAN (CLASSIC DARK ELEGANT DENGAN GAMBAR LATAR HALUS) */
 .card-front {
   background-color: #1a1614;
+  /* Gambar latar belakang halus khusus di bagian kartu depan */
+  background-image: 
+    linear-gradient(rgba(26, 22, 20, 0.88), rgba(26, 22, 20, 0.88)),
+    url('tarot idcard.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
 .header-top {
-  background-color: #241e1a;
+  background-color: rgba(36, 30, 26, 0.85);
   text-align: center;
   padding: 18px 0 8px 0;
   font-size: 13px;
@@ -246,7 +248,7 @@ body::before {
 }
 
 .header-banner {
-  background-color: #3d0c08;
+  background-color: rgba(61, 12, 8, 0.9);
   color: #ffffff;
   text-align: center;
   padding: 16px 10px 42px 10px;
@@ -306,11 +308,12 @@ body::before {
 }
 
 .info-box {
-  background-color: #25201c;
+  background-color: rgba(37, 32, 28, 0.85);
   border: 1px solid rgba(212, 175, 55, 0.25);
   border-radius: 12px;
   padding: 14px;
   box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
 }
 
 .field-label {
@@ -346,7 +349,7 @@ body::before {
 }
 
 .id-tag {
-  background-color: #332a24;
+  background-color: rgba(51, 42, 36, 0.9);
   border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 6px;
   padding: 6px;
@@ -483,7 +486,7 @@ body::before {
   margin-top: 10px;
 }
 
-/* 7. DEKORASI & EFEK TOMBOL BALIK KARTU (CLASSIC ELEGANT) */
+/* 7. DEKORASI & EFEK TOMBOL BALIK KARTU */
 @keyframes goldShimmerSweep {
   0% {
     transform: translateX(-150%) rotate(25deg);
@@ -511,8 +514,8 @@ body::before {
   border-radius: 30px;
   cursor: pointer;
   overflow: hidden;
-  outline: none !important; /* MENGHILANGKAN BORDER FOCUS OUTLINE */
-  -webkit-tap-highlight-color: transparent; /* MENGHILANGKAN HIGHLIGHT BIRU DI MOBILE */
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
   animation: buttonPulseGlow 3.5s infinite ease-in-out;
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   background-clip: padding-box;
@@ -524,7 +527,6 @@ body::before {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* MENGHILANGKAN GARIS OUTLINE BIRU SAAT DIKLIK ATAU DIFOKUSKAN */
 .btn-flip:focus,
 .btn-flip:focus-visible,
 .btn-flip:active {
@@ -532,7 +534,6 @@ body::before {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.25);
 }
 
-/* Bingkai Emas Mengkilap */
 .btn-flip::before {
   content: '';
   position: absolute;
@@ -546,7 +547,6 @@ body::before {
   pointer-events: none;
 }
 
-/* Lapisan Kilatan Sinar */
 .btn-shimmer {
   position: absolute;
   top: -50%;
@@ -564,7 +564,6 @@ body::before {
   pointer-events: none;
 }
 
-/* Konten Isi Tombol */
 .btn-content {
   position: relative;
   z-index: 2;
@@ -592,7 +591,6 @@ body::before {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Interaksi Hover & Active */
 .btn-flip:hover {
   transform: translateY(-4px) scale(1.03);
   background: linear-gradient(135deg, #420a06 0%, #290503 50%, #52100a 100%);
