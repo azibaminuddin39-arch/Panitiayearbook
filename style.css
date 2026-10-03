@@ -56,7 +56,7 @@ body::before {
   animation-play-state: paused;
 }
 
-/* 2. TALI LANYARD V & PENGAIT */
+/* 2. TALI LANYARD V & PENGAIT (DENGAN GRADASI ABU-ABU, MAROON, & EMAS) */
 .lanyard-v {
   position: absolute;
   top: -140px;
@@ -77,14 +77,14 @@ body::before {
   background: 
     repeating-linear-gradient(
       45deg,
-      rgba(255, 255, 255, 0.05) 0px,
-      rgba(255, 255, 255, 0.05) 2px,
+      rgba(212, 175, 55, 0.35) 0px,
+      rgba(212, 175, 55, 0.35) 2px,
       transparent 2px,
-      transparent 4px
+      transparent 6px
     ),
-    linear-gradient(180deg, #102a43 0%, #1e3c72 50%, #2a5298 100%);
-  border-left: 2px dashed rgba(255, 255, 255, 0.35);
-  border-right: 2px dashed rgba(255, 255, 255, 0.35);
+    linear-gradient(180deg, #4a4a4a 0%, #3d0c08 30%, #7a1515 50%, #3d0c08 70%, #2d2d2d 100%);
+  border-left: 2px dashed #d4af37;
+  border-right: 2px dashed #d4af37;
   box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -107,7 +107,7 @@ body::before {
   transform: translateX(-50%);
   width: 22px;
   height: 22px;
-  border: 4px solid #b0b0b0;
+  border: 4px solid #d4af37;
   border-radius: 50%;
   background: transparent;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
@@ -121,7 +121,7 @@ body::before {
   transform: translateX(-50%);
   width: 20px;
   height: 18px;
-  background: linear-gradient(135deg, #ffffff 0%, #a6a6a6 50%, #595959 100%);
+  background: linear-gradient(135deg, #f1d382 0%, #d4af37 50%, #8a6d1c 100%);
   border-radius: 3px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
   z-index: 33;
@@ -135,7 +135,7 @@ body::before {
   transform: translateX(-50%);
   width: 10px;
   height: 10px;
-  border: 3px solid #8c8c8c;
+  border: 3px solid #b8860b;
   border-radius: 50%;
   box-sizing: border-box;
 }
@@ -516,7 +516,7 @@ body::before {
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   background-clip: padding-box;
   box-sizing: border-box;
-  color: #ffffff !important; /* MEMAKSA TEKS TOMBOL MENJADI PUTIH */
+  color: #ffffff !important;
   font-size: 13.5px;
   font-weight: 700;
   letter-spacing: 0.8px;
