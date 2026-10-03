@@ -1,4 +1,4 @@
-// Data Resmi Panitia Yearbook XXVII SMAN 3 Banjarbaru (No. 1 - 27)
+// Data Resmi Panitia Yearbook XXVII SMAN 3 Banjarbaru (No. 1 - 25)
 const membersData = [
   { id: "YB27-001", name: "Bayu Setiawan", role: "Ketua", class: "XII-1" },
   { id: "YB27-002", name: "Muhammad Rakha Maulana", role: "Wakil Ketua", class: "XII-8" },
@@ -45,6 +45,17 @@ function initPage() {
   }
 
   updateCardData(selectedMember);
+
+  // Jalankan laser scanner saat awal halaman dimuat
+  setTimeout(triggerLaserScan, 400);
+
+  // Klik pada foto profil untuk scan ulang
+  const photoWrapper = document.querySelector('.photo-wrapper');
+  if (photoWrapper) {
+    photoWrapper.addEventListener('click', triggerLaserScan);
+    photoWrapper.style.cursor = 'pointer';
+    photoWrapper.title = 'Klik untuk scan biometrik ulang';
+  }
 }
 
 // Perbarui Tampilan ID Card & Hasilkan QR Code Khusus
@@ -62,13 +73,16 @@ function updateCardData(member) {
 
 // Fitur Balik Kartu (Flip 3D)
 function flipCard() {
-  const card = document.getElementById("idCard");
-  card.classList.toggle("flipped");
+  const card = document.getElementById("idCard") || document.querySelector(".card");
+  if (card) {
+    card.classList.toggle("flipped");
+  }
 }
 
 // Fitur Pembuat QR Code
 function generateQRCode(text) {
   const qrContainer = document.getElementById("qrcode");
+  if (!qrContainer) return;
   qrContainer.innerHTML = "";
   qrcode = new QRCode(qrContainer, {
     text: text,
@@ -78,6 +92,43 @@ function generateQRCode(text) {
     colorLight: "#ffffff",
     correctLevel: QRCode.CorrectLevel.H
   });
+}
+
+// Fitur Animasi Laser Scanner Akses Keamanan
+function triggerLaserScan() {
+  const laser = document.getElementById('laserScanner');
+  const statusText = document.getElementById('statusText');
+  const statusDot = document.querySelector('.status-dot');
+
+  if (!laser) return;
+
+  // Reset animasi
+  laser.classList.remove('active-scan');
+  void laser.offsetWidth; // Force reflow
+
+  // Mulai scan
+  laser.classList.add('active-scan');
+
+  if (statusText) {
+    statusText.innerText = "SCANNING...";
+    statusText.style.color = "#f1d382";
+  }
+  if (statusDot) {
+    statusDot.style.backgroundColor = "#f1d382";
+    statusDot.style.boxShadow = "0 0 8px #f1d382";
+  }
+
+  // Selesai scan (2.4 detik)
+  setTimeout(() => {
+    if (statusText) {
+      statusText.innerText = "ACCESS GRANTED ✓";
+      statusText.style.color = "#2ed573";
+    }
+    if (statusDot) {
+      statusDot.style.backgroundColor = "#2ed573";
+      statusDot.style.boxShadow = "0 0 10px #2ed573";
+    }
+  }, 2400);
 }
 
 // Jalankan saat halaman selesai dimuat
