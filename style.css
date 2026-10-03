@@ -56,7 +56,7 @@ body::before {
   animation-play-state: paused;
 }
 
-/* 2. TALI LANYARD V & PENGAIT (DENGAN GRADASI ABU-ABU, MAROON, & EMAS) */
+/* 2. TALI LANYARD V & PENGAIT (GRADASI ABU-ABU, MAROON, & EMAS) */
 .lanyard-v {
   position: absolute;
   top: -140px;
@@ -511,7 +511,8 @@ body::before {
   border-radius: 30px;
   cursor: pointer;
   overflow: hidden;
-  outline: none;
+  outline: none !important; /* MENGHILANGKAN BORDER FOCUS OUTLINE */
+  -webkit-tap-highlight-color: transparent; /* MENGHILANGKAN HIGHLIGHT BIRU DI MOBILE */
   animation: buttonPulseGlow 3.5s infinite ease-in-out;
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   background-clip: padding-box;
@@ -521,6 +522,14 @@ body::before {
   font-weight: 700;
   letter-spacing: 0.8px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* MENGHILANGKAN GARIS OUTLINE BIRU SAAT DIKLIK ATAU DIFOKUSKAN */
+.btn-flip:focus,
+.btn-flip:focus-visible,
+.btn-flip:active {
+  outline: none !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.25);
 }
 
 /* Bingkai Emas Mengkilap */
