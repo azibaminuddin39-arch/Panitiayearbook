@@ -7,7 +7,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* BACKGROUND UTAMA: GRADASI ANIMASI BERGERAK (MODERN CLASSIC SIMPLE) */
+/* BACKGROUND UTAMA: APPLE MUSIC LYRICS STYLE (HITAM & SILVER BERGERAK) */
 body {
   color: #f8fafc;
   display: flex;
@@ -18,15 +18,66 @@ body {
   padding: 40px 20px;
   overflow-x: hidden;
   position: relative;
-  background: linear-gradient(-45deg, #0b0f19, #1a0e1a, #161224, #0d1520);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  background-color: #08080a;
 }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* GUMPALAN GRADASI SILVER 1 (BERANIMASI) */
+body::before {
+  content: '';
+  position: fixed;
+  top: -10%;
+  left: -10%;
+  width: 65vw;
+  height: 65vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220, 225, 235, 0.35) 0%, rgba(140, 150, 165, 0.18) 45%, transparent 70%);
+  filter: blur(100px);
+  z-index: -2;
+  pointer-events: none;
+  animation: appleMusicSilver1 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* GUMPALAN GRADASI SILVER 2 (BERANIMASI) */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -15%;
+  right: -10%;
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(180, 190, 205, 0.3) 0%, rgba(80, 90, 105, 0.2) 50%, transparent 75%);
+  filter: blur(110px);
+  z-index: -1;
+  pointer-events: none;
+  animation: appleMusicSilver2 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* ANIMASI PERGERAKAN AMBIENT FLUID SILVER */
+@keyframes appleMusicSilver1 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(25vw, 20vh) scale(1.25) rotate(120deg);
+  }
+  100% {
+    transform: translate(-5vw, 35vh) scale(0.9) rotate(240deg);
+  }
+}
+
+@keyframes appleMusicSilver2 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-20vw, -25vh) scale(1.3) rotate(-120deg);
+  }
+  100% {
+    transform: translate(15vw, -40vh) scale(0.85) rotate(-240deg);
+  }
 }
 
 /* 1. ANIMASI AYUNAN PENDULUM HALUS */
@@ -226,7 +277,6 @@ body {
 /* 5. SISI DEPAN (CLASSIC DARK ELEGANT DENGAN GAMBAR LATAR HALUS) */
 .card-front {
   background-color: #1a1614;
-  /* Gambar latar belakang halus khusus di bagian kartu depan */
   background-image: 
     linear-gradient(rgba(26, 22, 20, 0.88), rgba(26, 22, 20, 0.88)),
     url('tarot idcard.png');
