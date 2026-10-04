@@ -7,7 +7,6 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* BACKGROUND UTAMA: APPLE MUSIC LYRICS STYLE (HITAM & SILVER BERGERAK) */
 body {
   color: #f8fafc;
   display: flex;
@@ -21,7 +20,6 @@ body {
   background-color: #08080a;
 }
 
-/* GUMPALAN GRADASI SILVER 1 (BERANIMASI) */
 body::before {
   content: '';
   position: fixed;
@@ -38,7 +36,6 @@ body::before {
   will-change: transform;
 }
 
-/* GUMPALAN GRADASI SILVER 2 (BERANIMASI) */
 body::after {
   content: '';
   position: fixed;
@@ -55,7 +52,6 @@ body::after {
   will-change: transform;
 }
 
-/* ANIMASI PERGERAKAN AMBIENT FLUID SILVER */
 @keyframes appleMusicSilver1 {
   0% { transform: translate(0, 0) scale(1) rotate(0deg); }
   50% { transform: translate(25vw, 20vh) scale(1.25) rotate(120deg); }
@@ -68,7 +64,6 @@ body::after {
   100% { transform: translate(15vw, -40vh) scale(0.85) rotate(-240deg); }
 }
 
-/* 1. ANIMASI AYUNAN PENDULUM HALUS */
 @keyframes pendulumSwing {
   0% { transform: rotate(0deg); }
   25% { transform: rotate(1.5deg); }
@@ -90,7 +85,6 @@ body::after {
   animation-play-state: paused;
 }
 
-/* 2. TALI LANYARD V & PENGAIT (KREM GELAP, ABU-ABU & EMAS) */
 .lanyard-v {
   position: absolute;
   top: -140px;
@@ -187,7 +181,6 @@ body::after {
   z-index: 15;
 }
 
-/* 3. KARTU & KONTROL TILT 3D */
 .card-container {
   width: 320px;
   height: 520px;
@@ -219,7 +212,6 @@ body::after {
   flex-direction: column;
 }
 
-/* 4. GLASSMORPHISM & HOLOGRAM */
 .glass-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -262,7 +254,6 @@ body::after {
   opacity: 1;
 }
 
-/* 5. SISI DEPAN (CLASSIC DARK ELEGANT DENGAN GAMBAR LATAR HALUS) */
 .card-front {
   background-color: #1a1614;
   background-image: 
@@ -409,7 +400,6 @@ body::after {
   margin-top: 10px;
 }
 
-/* 6. SISI BELAKANG */
 .card-back {
   background-color: #181410;
   color: #ffffff;
@@ -524,7 +514,6 @@ body::after {
   margin-top: 10px;
 }
 
-/* 7. DEKORASI & EFEK TOMBOL BALIK KARTU */
 @keyframes goldShimmerSweep {
   0% { transform: translateX(-150%) rotate(25deg); }
   100% { transform: translateX(250%) rotate(25deg); }
@@ -645,25 +634,30 @@ body::after {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
-/* ==========================================================
-   ANIMASI LASER SCANNER AKSES KEAMANAN (GOLD / BIOMETRIC)
-   ========================================================== */
-
-/* 1. BADGE STATUS KEAMANAN DI POJOK ATAS KARTU */
 .scan-status-badge {
   position: absolute;
-  top: 14px;
+  bottom: 14px;
   right: 14px;
-  background: rgba(15, 12, 10, 0.85);
+  top: auto;
+  background: rgba(15, 12, 10, 0.9);
   border: 1px solid rgba(212, 175, 55, 0.5);
   border-radius: 20px;
-  padding: 4px 10px;
+  padding: 5px 12px;
   display: flex;
   align-items: center;
   gap: 6px;
   z-index: 25;
   backdrop-filter: blur(4px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scan-status-badge.fade-out {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
 }
 
 .status-dot {
@@ -688,7 +682,6 @@ body::after {
   100% { opacity: 1; transform: scale(1.2); }
 }
 
-/* 2. ELEMEN GARIS LASER & PANCARAN CAHAYA */
 .laser-scanner {
   position: absolute;
   left: 0;
@@ -705,7 +698,6 @@ body::after {
   opacity: 0;
 }
 
-/* Pantulan gradasi ekor laser */
 .laser-beam {
   position: absolute;
   top: 0;
@@ -716,12 +708,10 @@ body::after {
   pointer-events: none;
 }
 
-/* Class pembuka animasi scan */
 .laser-scanner.active-scan {
   animation: laserScanMove 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Keyframe Pergerakan Laser dari Atas ke Bawah */
 @keyframes laserScanMove {
   0% {
     top: -5%;
