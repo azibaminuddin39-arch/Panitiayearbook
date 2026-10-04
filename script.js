@@ -64,17 +64,27 @@ function initPage() {
   }
 }
 
+// PENGECEKAN KETAT (Pencegah Crash jika elemen HTML belum ada)
 function updateCardData(member) {
-  document.getElementById("frontName").textContent = member.name;
-  document.getElementById("frontRole").textContent = member.role;
-  document.getElementById("frontClass").textContent = member.class;
-  document.getElementById("frontId").textContent = member.id;
-  document.getElementById("backId").textContent = member.id;
+  if (!member) return;
+
+  const elFrontName = document.getElementById("frontName");
+  const elFrontRole = document.getElementById("frontRole");
+  const elFrontClass = document.getElementById("frontClass");
+  const elFrontId = document.getElementById("frontId");
+  const elBackId = document.getElementById("backId");
+
+  if (elFrontName) elFrontName.textContent = member.name;
+  if (elFrontRole) elFrontRole.textContent = member.role;
+  if (elFrontClass) elFrontClass.textContent = member.class;
+  if (elFrontId) elFrontId.textContent = member.id;
+  if (elBackId) elBackId.textContent = member.id;
 
   const uniqueUrl = `https://panitiayearbook.pages.dev/?id=${member.id}`;
   generateQRCode(uniqueUrl);
 }
 
+// FUNGSI MEMUTAR KARTU
 function flipCard() {
   const card = document.getElementById("idCard") || document.querySelector(".card");
   if (card) {
@@ -82,19 +92,26 @@ function flipCard() {
   }
 }
 
+// AMAN DARI ERROR QRCODE
 function generateQRCode(text) {
   const qrContainer = document.getElementById("qrcode");
   if (!qrContainer) return;
   qrContainer.innerHTML = "";
 
-  qrcode = new QRCode(qrContainer, {
-    text: text,
-    width: 105,
-    height: 105,
-    colorDark: "#000000",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.H
-  });
+  if (typeof QRCode !== 'undefined') {
+    try {
+      qrcode = new QRCode(qrContainer, {
+        text: text,
+        width: 105,
+        height: 105,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    } catch (e) {
+      console.warn("Gagal membuat QR Code:", e);
+    }
+  }
 }
 
 function triggerLaserScan() {
@@ -145,14 +162,14 @@ function triggerLaserScan() {
   }, 2400);
 }
 
-/* FUNGSIONALITAS SEARCH BAR PANITIA (TERMASUK FIX SCROLL DALAM KARTU 3D) */
+/* FITUR SEARCH BAR DENGAN EVENT LISTENER SCROLL AKTIF */
 function initSearch() {
   const searchInput = document.getElementById('searchInput');
   const searchResults = document.getElementById('searchResults');
 
   if (!searchInput || !searchResults) return;
 
-  // FIX BENTROKAN SCROLL DALAM ELEMEN FLIPPED 3D
+  // MEMBERIKAN DUKUNGAN SCROLL PADA RUANG 3D KARTU
   searchResults.addEventListener('wheel', function(e) {
     e.stopPropagation();
     this.scrollTop += e.deltaY;
