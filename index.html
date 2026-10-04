@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ID Card Panitia Yearbook 2027</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- Library QR Code JS -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ID Card Panitia Yearbook XXVII - SMAN 3 Banjarbaru</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
   <div class="card-wrapper">
-    <!-- Tali & Gantungan Lanyard -->
+
+    <!-- TALI LANYARD BERBENTUK V -->
     <div class="lanyard-v">
       <div class="strap strap-left"></div>
       <div class="strap strap-right"></div>
@@ -19,117 +19,128 @@
       <div class="clip"></div>
     </div>
 
-    <!-- Container Kartu Utama -->
+    <!-- AREA KARTU 3D FLIP -->
     <div class="card-container">
-      <div class="card-hole"></div>
-
-      <!-- Sinar Laser Pemindai -->
-      <div class="laser-scanner" id="laserScanner">
-        <div class="laser-beam"></div>
-      </div>
-
-      <!-- Badge Indikator Status Scan -->
-      <div class="scan-status-badge" id="scanBadge">
-        <div class="status-dot"></div>
-        <span class="status-text" id="statusText">SCANNING...</span>
-      </div>
-
       <div class="card" id="idCard">
         
         <!-- SISI DEPAN KARTU -->
         <div class="card-face card-front">
-          <div class="glass-overlay"></div>
-          
-          <div class="header-top">SMA NEGERI YEARBOOK</div>
-          
-          <div class="header-banner">
-            <h2>PANITIA YEARBOOK</h2>
-            <span class="edition">2027 EDITION</span>
-            <div class="gold-line"></div>
+          <!-- EFEK LASER SCANNER -->
+          <div class="laser-scanner" id="laserScanner">
+            <div class="laser-beam"></div>
           </div>
 
+          <!-- BADGE STATUS SCAN BIOMETRIK -->
+          <div class="scan-status-badge" id="scanBadge">
+            <span class="status-dot"></span>
+            <span class="status-text" id="statusText">VERIFYING...</span>
+          </div>
+
+          <div class="glass-overlay"></div>
+          <div class="card-hole"></div>
+
+          <div class="header-top">
+            <h3>SMAN 3 BANJARBARU</h3>
+          </div>
+          <div class="header-banner">
+            <h2>PANITIA YEARBOOK</h2>
+            <span class="edition">X X V I I</span>
+            <div class="gold-line"></div>
+          </div>
           <div class="photo-wrapper">
             <div class="photo-placeholder">👤</div>
           </div>
-
+          
           <div class="content-body">
             <div class="info-box">
-              <span class="field-label">NAMA LENGKAP</span>
-              <div class="field-value-main" id="frontName">Bayu Setiawan</div>
+              <div class="field-label">NAMA:</div>
+              <div class="field-value-main" id="frontName">Rezky Aditya Ramadhani</div>
 
               <div class="field-row">
-                <span class="field-title">JABATAN:</span>
-                <span class="field-data" id="frontRole">Ketua</span>
+                <span class="field-title">JABATAN / DIVISI:</span>
+                <span class="field-data" id="frontRole">Sekretaris</span>
               </div>
 
               <div class="field-row">
-                <span class="field-title">KELAS:</span>
-                <span class="field-data" id="frontClass">XII-1</span>
+                <span class="field-title">Kelas:</span>
+                <span class="field-data" id="frontClass">XII-2</span>
               </div>
 
-              <div class="id-tag" id="frontId">YB27-001</div>
+              <div class="id-tag">
+                <span>ID: </span><strong id="frontId">YB27-003</strong>
+              </div>
             </div>
 
-            <div class="footer-text">OFFICIAL ACCESS CARD • YEARBOOK COMMITTEE</div>
+            <div class="footer-text">
+              Kartu Identitas Resmi • Berlaku Selama Berlangsungnya Acara
+            </div>
           </div>
         </div>
 
         <!-- SISI BELAKANG KARTU -->
         <div class="card-face card-back">
           <div class="glass-overlay"></div>
-          
+          <div class="card-hole"></div>
+
           <div class="back-header">
-            <h3>VERIFIKASI ANGGOTA</h3>
-            <p>PANITIA YEARBOOK 2027</p>
+            <h3>KETENTUAN & SYARAT</h3>
+            <p>Panitia Yearbook XXVII SMAN 3 BANJARBARU</p>
           </div>
 
           <div class="back-body">
-            <!-- Search Bar Khusus Sisi Belakang -->
-            <div class="back-search-box">
-              <input 
-                type="text" 
-                id="backSearchInput" 
-                placeholder="Cari ID (cth: YB27-001)..." 
-                autocomplete="off"
-              />
-              <button onclick="executeBackSearch()" type="button">🔍</button>
-              <div id="backSearchSuggestions" class="back-search-suggestions"></div>
+            <!-- FITUR BARU: SEARCH BAR ANGGOTA PANITIA -->
+            <div class="search-box-container">
+              <div class="search-input-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Cari Nama / ID / Divisi..." autocomplete="off">
+              </div>
+              <div class="search-results" id="searchResults"></div>
             </div>
 
             <div class="notice-box">
-              <span class="icon">⚠️</span>
-              <span>Kartu ini resmi milik panitia. Gunakan QR Code untuk verifikasi data.</span>
-            </div>
-
-            <div class="qr-section">
-              <div id="qrcode"></div>
-              <div class="qr-id" id="backId">YB27-001</div>
+              <span class="icon">ℹ</span>
+              <p>Kartu ini adalah bukti identitas resmi Panitia Yearbook XXVII. Harap selalu mengenakan kartu fisik selama kegiatan berlangsung.</p>
             </div>
 
             <div class="details-list">
               <div class="detail-item">
-                <span class="label">Status</span>
+                <span class="label">Sekolah:</span>
+                <span class="val">SMAN 3 Banjarbaru</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Tahun Pelajaran:</span>
+                <span class="val">2026/2027</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Status Kartu:</span>
                 <span class="val status-active">Aktif</span>
               </div>
             </div>
 
-            <p class="stamp-note">Official Member Identity Card</p>
+            <div class="qr-section">
+              <div id="qrcode"></div>
+              <div class="qr-id" id="backId">YB27-003</div>
+            </div>
+
+            <div class="stamp-note">
+              Authorized Signature & Stamp Required
+            </div>
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Tombol Balik Kartu -->
-    <button class="btn-flip" onclick="flipCard()" type="button">
-      <div class="btn-shimmer"></div>
-      <div class="btn-content">
-        <span class="btn-icon">🔄</span>
-        <span class="btn-text">BALIK KARTU</span>
-      </div>
-    </button>
-
   </div>
+
+  <!-- BAGIAN TOMBOL -->
+  <button class="btn-flip" onclick="flipCard()">
+    <span class="btn-shimmer"></span>
+    <span class="btn-content">
+      <span class="btn-icon">🔄</span>
+      <span class="btn-text">Balik Kartu (Depan / Belakang)</span>
+    </span>
+  </button>
 
   <script src="script.js"></script>
 </body>
