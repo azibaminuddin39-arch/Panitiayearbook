@@ -44,8 +44,8 @@ function initPage() {
   }
 
   updateCardData(selectedMember);
+  initSearch();
 
-  // Pengecekan sessionStorage agar animasi scan tidak berjalan ulang saat di-refresh
   const hasScanned = sessionStorage.getItem('hasScanned');
   const scanBadge = document.getElementById('scanBadge');
 
@@ -62,8 +62,6 @@ function initPage() {
     photoWrapper.style.cursor = 'pointer';
     photoWrapper.title = 'Klik untuk scan biometrik ulang';
   }
-
-  setupBackSearch();
 }
 
 function updateCardData(member) {
@@ -89,11 +87,10 @@ function generateQRCode(text) {
   if (!qrContainer) return;
   qrContainer.innerHTML = "";
 
-  // Ukuran diperbesar ke 115x115 px dengan batas toleransi error H
   qrcode = new QRCode(qrContainer, {
     text: text,
-    width: 115,
-    height: 115,
+    width: 105,
+    height: 105,
     colorDark: "#000000",
     colorLight: "#ffffff",
     correctLevel: QRCode.CorrectLevel.H
@@ -148,91 +145,62 @@ function triggerLaserScan() {
   }, 2400);
 }
 
-function setupBackSearch() {
-  const input = document.getElementById('backSearchInput');
-  const suggestions = document.getElementById('backSearchSuggestions');
+/* FUNGSIONALITAS SEARCH BAR PANITIA */
+function initSearch() {
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
 
-  if (!input || !suggestions) return;
+  if (!searchInput || !searchResults) return;
 
-  // Filter hasil saat mengetik
-  input.addEventListener('input', (e) => {
-    const query = e.target.value.trim().toLowerCase();
-    suggestions.innerHTML = '';
-
+  searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
     if (!query) {
-      suggestions.style.display = 'none';
+      searchResults.classList.remove('active');
+      searchResults.innerHTML = '';
       return;
     }
 
     const filtered = membersData.filter(m => 
-      m.id.toLowerCase().includes(query) || 
-      m.name.toLowerCase().includes(query)
+      m.name.toLowerCase().includes(query) ||
+      m.id.toLowerCase().includes(query) ||
+      m.role.toLowerCase().includes(query) ||
+      m.class.toLowerCase().includes(query)
     );
 
     if (filtered.length === 0) {
-      suggestions.innerHTML = `<div class="suggestion-item"><span>ID tidak ditemukan</span></div>`;
+      searchResults.innerHTML = '<div class="search-item" style="cursor:default; color:#aaa;">Anggota tidak ditemukan</div>';
     } else {
-      filtered.forEach(member => {
-        const item = document.createElement('div');
-        item.className = 'suggestion-item';
-        item.innerHTML = `
-          <span class="sug-id-text">${member.id}</span>
-          <span class="sug-name-text">${member.name}</span>
-        `;
-        item.onclick = (e) => {
-          e.stopPropagation();
-          selectMember(member);
-          suggestions.style.display = 'none';
-          input.value = member.id;
-        };
-        suggestions.appendChild(item);
-      });
+      searchResults.innerHTML = filtered.map(m => `
+        <div class="search-item" onclick="selectMember('${m.id}')">
+          <span class="search-item-name">${m.name}</span>
+          <span class="search-item-meta">${m.id} • ${m.class}</span>
+        </div>
+      `).join('');
     }
 
-    suggestions.style.display = 'block';
+    searchResults.classList.add('active');
   });
 
-  input.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      executeBackSearch();
-      suggestions.style.display = 'none';
-    }
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.back-search-box')) {
-      suggestions.style.display = 'none';
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-box-container')) {
+      searchResults.classList.remove('active');
     }
   });
 }
 
-function executeBackSearch() {
-  const input = document.getElementById('backSearchInput');
-  const query = input.value.trim().toLowerCase();
-  
-  if (!query) return;
-
-  const found = membersData.find(m => 
-    m.id.toLowerCase() === query || 
-    m.name.toLowerCase().includes(query)
-  );
-
+function selectMember(id) {
+  const found = membersData.find(m => m.id === id);
   if (found) {
-    selectMember(found);
-  } else {
-    alert("ID atau Anggota tidak ditemukan!");
+    updateCardData(found);
+    
+    const searchResults = document.getElementById('searchResults');
+    const searchInput = document.getElementById('searchInput');
+    
+    if (searchResults) searchResults.classList.remove('active');
+    if (searchInput) searchInput.value = '';
+
+    triggerLaserScan();
   }
-}
-
-function selectMember(member) {
-  updateCardData(member);
-
-  // Perbarui URL browser tanpa reload
-  const newUrl = `${window.location.pathname}?id=${member.id}`;
-  window.history.pushState({ path: newUrl }, '', newUrl);
-
-  // Memicu scan laser ulang
-  triggerLaserScan();
 }
 
 window.onload = initPage;
