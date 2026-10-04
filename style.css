@@ -634,29 +634,33 @@ body::after {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
+/* BADGE STATUS KEAMANAN (DI POSISI TENGAH DI BAWAH ID) */
 .scan-status-badge {
   position: absolute;
-  bottom: 14px;
-  right: 14px;
-  top: auto;
-  background: rgba(15, 12, 10, 0.9);
+  bottom: 12px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%) translateY(0);
+  background: rgba(15, 12, 10, 0.92);
   border: 1px solid rgba(212, 175, 55, 0.5);
   border-radius: 20px;
-  padding: 5px 12px;
+  padding: 4px 14px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   z-index: 25;
   backdrop-filter: blur(4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
   opacity: 1;
-  transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  white-space: nowrap;
 }
 
+/* EFEK MEMUDAR & TERSERAP KE BAWAH SAAT FADE OUT */
 .scan-status-badge.fade-out {
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateX(-50%) translateY(8px);
   pointer-events: none;
 }
 
