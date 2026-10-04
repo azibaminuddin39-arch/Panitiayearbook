@@ -1,4 +1,3 @@
-// Data Resmi Panitia Yearbook XXVII SMAN 3 Banjarbaru (No. 1 - 25)
 const membersData = [
   { id: "YB27-001", name: "Bayu Setiawan", role: "Ketua", class: "XII-1" },
   { id: "YB27-002", name: "Muhammad Rakha Maulana", role: "Wakil Ketua", class: "XII-8" },
@@ -28,13 +27,13 @@ const membersData = [
 ];
 
 let qrcode = null;
+let scanTimeout = null;
+let fadeTimeout = null;
 
-// Inisialisasi: Cek Link Parameter ID
 function initPage() {
   const urlParams = new URLSearchParams(window.location.search);
   const targetId = urlParams.get('id');
 
-  // Default ke panitia pertama jika tidak ada ID di URL
   let selectedMember = membersData[0];
 
   if (targetId) {
@@ -46,10 +45,8 @@ function initPage() {
 
   updateCardData(selectedMember);
 
-  // Jalankan laser scanner saat awal halaman dimuat
   setTimeout(triggerLaserScan, 400);
 
-  // Klik pada foto profil untuk scan ulang
   const photoWrapper = document.querySelector('.photo-wrapper');
   if (photoWrapper) {
     photoWrapper.addEventListener('click', triggerLaserScan);
@@ -58,7 +55,6 @@ function initPage() {
   }
 }
 
-// Perbarui Tampilan ID Card & Hasilkan QR Code Khusus
 function updateCardData(member) {
   document.getElementById("frontName").textContent = member.name;
   document.getElementById("frontRole").textContent = member.role;
@@ -66,12 +62,10 @@ function updateCardData(member) {
   document.getElementById("frontId").textContent = member.id;
   document.getElementById("backId").textContent = member.id;
 
-  // URL Unik untuk QR Code masing-masing orang
   const uniqueUrl = `https://panitiayearbook.pages.dev/?id=${member.id}`;
   generateQRCode(uniqueUrl);
 }
 
-// Fitur Balik Kartu (Flip 3D)
 function flipCard() {
   const card = document.getElementById("idCard") || document.querySelector(".card");
   if (card) {
@@ -79,7 +73,6 @@ function flipCard() {
   }
 }
 
-// Fitur Pembuat QR Code
 function generateQRCode(text) {
   const qrContainer = document.getElementById("qrcode");
   if (!qrContainer) return;
@@ -94,19 +87,23 @@ function generateQRCode(text) {
   });
 }
 
-// Fitur Animasi Laser Scanner Akses Keamanan
 function triggerLaserScan() {
   const laser = document.getElementById('laserScanner');
   const statusText = document.getElementById('statusText');
   const statusDot = document.querySelector('.status-dot');
+  const scanBadge = document.getElementById('scanBadge');
 
   if (!laser) return;
 
-  // Reset animasi
-  laser.classList.remove('active-scan');
-  void laser.offsetWidth; // Force reflow
+  clearTimeout(scanTimeout);
+  clearTimeout(fadeTimeout);
 
-  // Mulai scan
+  if (scanBadge) {
+    scanBadge.classList.remove('fade-out');
+  }
+
+  laser.classList.remove('active-scan');
+  void laser.offsetWidth;
   laser.classList.add('active-scan');
 
   if (statusText) {
@@ -118,8 +115,7 @@ function triggerLaserScan() {
     statusDot.style.boxShadow = "0 0 8px #f1d382";
   }
 
-  // Selesai scan (2.4 detik)
-  setTimeout(() => {
+  scanTimeout = setTimeout(() => {
     if (statusText) {
       statusText.innerText = "ACCESS GRANTED ✓";
       statusText.style.color = "#2ed573";
@@ -128,8 +124,14 @@ function triggerLaserScan() {
       statusDot.style.backgroundColor = "#2ed573";
       statusDot.style.boxShadow = "0 0 10px #2ed573";
     }
+
+    fadeTimeout = setTimeout(() => {
+      if (scanBadge) {
+        scanBadge.classList.add('fade-out');
+      }
+    }, 1500);
+
   }, 2400);
 }
 
-// Jalankan saat halaman selesai dimuat
 window.onload = initPage;
