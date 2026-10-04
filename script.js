@@ -45,7 +45,20 @@ function initPage() {
 
   updateCardData(selectedMember);
 
-  setTimeout(triggerLaserScan, 400);
+  // Pengecekan sessionStorage agar tidak muncul lagi saat refresh
+  const hasScanned = sessionStorage.getItem('hasScanned');
+  const scanBadge = document.getElementById('scanBadge');
+
+  if (!hasScanned) {
+    // Jalankan scan hanya jika baru pertama kali membuka web
+    setTimeout(triggerLaserScan, 400);
+    sessionStorage.setItem('hasScanned', 'true');
+  } else {
+    // Sembunyikan badge jika halaman di-refresh
+    if (scanBadge) {
+      scanBadge.style.display = 'none';
+    }
+  }
 
   const photoWrapper = document.querySelector('.photo-wrapper');
   if (photoWrapper) {
@@ -99,6 +112,7 @@ function triggerLaserScan() {
   clearTimeout(fadeTimeout);
 
   if (scanBadge) {
+    scanBadge.style.display = 'flex'; // Tampilkan kembali jika sebelumnya tersembunyi
     scanBadge.classList.remove('fade-out');
   }
 
