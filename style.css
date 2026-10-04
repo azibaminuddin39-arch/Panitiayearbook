@@ -434,7 +434,7 @@ body::after {
   position: relative;
 }
 
-/* STYLING FITUR SEARCH BAR DAN FIX SCROLL 3D */
+/* STYLING FITUR SEARCH BAR */
 .search-box-container {
   position: relative;
   margin-bottom: 6px;
@@ -477,13 +477,12 @@ body::after {
   font-size: 10.5px;
 }
 
-/* KONFIGURASI KHUSUS SUPAYA RESULTS DAPAT DI-SCROLL DI RUANG 3D */
 .search-results {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  max-height: 140px;
+  max-height: 150px;
   overflow-y: auto;
   background: rgba(24, 20, 16, 0.98);
   border: 1px solid rgba(212, 175, 55, 0.6);
@@ -491,14 +490,8 @@ body::after {
   margin-top: 4px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.85);
   display: none;
-  z-index: 100;
+  z-index: 50;
   backdrop-filter: blur(8px);
-
-  /* PENTING: MENGANGKAT KETINGGIAN LAYER UNTUK FLIP SCROLLING */
-  transform: translateZ(10px);
-  touch-action: pan-y;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
 }
 
 .search-results::-webkit-scrollbar {
@@ -592,6 +585,7 @@ body::after {
   color: #2ed573;
 }
 
+/* SECTION QR CODE */
 .qr-section {
   display: flex;
   flex-direction: column;
