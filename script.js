@@ -145,12 +145,22 @@ function triggerLaserScan() {
   }, 2400);
 }
 
-/* FUNGSIONALITAS SEARCH BAR PANITIA */
+/* FUNGSIONALITAS SEARCH BAR PANITIA (TERMASUK FIX SCROLL DALAM KARTU 3D) */
 function initSearch() {
   const searchInput = document.getElementById('searchInput');
   const searchResults = document.getElementById('searchResults');
 
   if (!searchInput || !searchResults) return;
+
+  // FIX BENTROKAN SCROLL DALAM ELEMEN FLIPPED 3D
+  searchResults.addEventListener('wheel', function(e) {
+    e.stopPropagation();
+    this.scrollTop += e.deltaY;
+  }, { passive: true });
+
+  searchResults.addEventListener('touchmove', function(e) {
+    e.stopPropagation();
+  }, { passive: true });
 
   searchInput.addEventListener('input', function() {
     const query = this.value.toLowerCase().trim();
@@ -168,39 +178,4 @@ function initSearch() {
     );
 
     if (filtered.length === 0) {
-      searchResults.innerHTML = '<div class="search-item" style="cursor:default; color:#aaa;">Anggota tidak ditemukan</div>';
-    } else {
-      searchResults.innerHTML = filtered.map(m => `
-        <div class="search-item" onclick="selectMember('${m.id}')">
-          <span class="search-item-name">${m.name}</span>
-          <span class="search-item-meta">${m.id} • ${m.class}</span>
-        </div>
-      `).join('');
-    }
-
-    searchResults.classList.add('active');
-  });
-
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.search-box-container')) {
-      searchResults.classList.remove('active');
-    }
-  });
-}
-
-function selectMember(id) {
-  const found = membersData.find(m => m.id === id);
-  if (found) {
-    updateCardData(found);
-    
-    const searchResults = document.getElementById('searchResults');
-    const searchInput = document.getElementById('searchInput');
-    
-    if (searchResults) searchResults.classList.remove('active');
-    if (searchInput) searchInput.value = '';
-
-    triggerLaserScan();
-  }
-}
-
-window.onload = initPage;
+      searchResults.innerHTML = '
