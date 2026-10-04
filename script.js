@@ -64,27 +64,17 @@ function initPage() {
   }
 }
 
-// PENGECEKAN KETAT (Pencegah Crash jika elemen HTML belum ada)
 function updateCardData(member) {
-  if (!member) return;
-
-  const elFrontName = document.getElementById("frontName");
-  const elFrontRole = document.getElementById("frontRole");
-  const elFrontClass = document.getElementById("frontClass");
-  const elFrontId = document.getElementById("frontId");
-  const elBackId = document.getElementById("backId");
-
-  if (elFrontName) elFrontName.textContent = member.name;
-  if (elFrontRole) elFrontRole.textContent = member.role;
-  if (elFrontClass) elFrontClass.textContent = member.class;
-  if (elFrontId) elFrontId.textContent = member.id;
-  if (elBackId) elBackId.textContent = member.id;
+  document.getElementById("frontName").textContent = member.name;
+  document.getElementById("frontRole").textContent = member.role;
+  document.getElementById("frontClass").textContent = member.class;
+  document.getElementById("frontId").textContent = member.id;
+  document.getElementById("backId").textContent = member.id;
 
   const uniqueUrl = `https://panitiayearbook.pages.dev/?id=${member.id}`;
   generateQRCode(uniqueUrl);
 }
 
-// FUNGSI MEMUTAR KARTU
 function flipCard() {
   const card = document.getElementById("idCard") || document.querySelector(".card");
   if (card) {
@@ -92,26 +82,19 @@ function flipCard() {
   }
 }
 
-// AMAN DARI ERROR QRCODE
 function generateQRCode(text) {
   const qrContainer = document.getElementById("qrcode");
   if (!qrContainer) return;
   qrContainer.innerHTML = "";
 
-  if (typeof QRCode !== 'undefined') {
-    try {
-      qrcode = new QRCode(qrContainer, {
-        text: text,
-        width: 105,
-        height: 105,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    } catch (e) {
-      console.warn("Gagal membuat QR Code:", e);
-    }
-  }
+  qrcode = new QRCode(qrContainer, {
+    text: text,
+    width: 105,
+    height: 105,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
 }
 
 function triggerLaserScan() {
@@ -162,22 +145,12 @@ function triggerLaserScan() {
   }, 2400);
 }
 
-/* FITUR SEARCH BAR DENGAN EVENT LISTENER SCROLL AKTIF */
+/* FUNGSIONALITAS SEARCH BAR PANITIA */
 function initSearch() {
   const searchInput = document.getElementById('searchInput');
   const searchResults = document.getElementById('searchResults');
 
   if (!searchInput || !searchResults) return;
-
-  // MEMBERIKAN DUKUNGAN SCROLL PADA RUANG 3D KARTU
-  searchResults.addEventListener('wheel', function(e) {
-    e.stopPropagation();
-    this.scrollTop += e.deltaY;
-  }, { passive: true });
-
-  searchResults.addEventListener('touchmove', function(e) {
-    e.stopPropagation();
-  }, { passive: true });
 
   searchInput.addEventListener('input', function() {
     const query = this.value.toLowerCase().trim();
@@ -195,4 +168,39 @@ function initSearch() {
     );
 
     if (filtered.length === 0) {
-      searchResults.innerHTML = '
+      searchResults.innerHTML = '<div class="search-item" style="cursor:default; color:#aaa;">Anggota tidak ditemukan</div>';
+    } else {
+      searchResults.innerHTML = filtered.map(m => `
+        <div class="search-item" onclick="selectMember('${m.id}')">
+          <span class="search-item-name">${m.name}</span>
+          <span class="search-item-meta">${m.id} • ${m.class}</span>
+        </div>
+      `).join('');
+    }
+
+    searchResults.classList.add('active');
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-box-container')) {
+      searchResults.classList.remove('active');
+    }
+  });
+}
+
+function selectMember(id) {
+  const found = membersData.find(m => m.id === id);
+  if (found) {
+    updateCardData(found);
+    
+    const searchResults = document.getElementById('searchResults');
+    const searchInput = document.getElementById('searchInput');
+    
+    if (searchResults) searchResults.classList.remove('active');
+    if (searchInput) searchInput.value = '';
+
+    triggerLaserScan();
+  }
+}
+
+window.onload = initPage;
