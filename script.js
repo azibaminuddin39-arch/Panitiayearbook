@@ -45,16 +45,15 @@ function initPage() {
 
   updateCardData(selectedMember);
 
+  // Pengecekan sessionStorage agar animasi scan tidak berjalan ulang saat di-refresh
   const hasScanned = sessionStorage.getItem('hasScanned');
   const scanBadge = document.getElementById('scanBadge');
 
   if (!hasScanned) {
     setTimeout(triggerLaserScan, 400);
     sessionStorage.setItem('hasScanned', 'true');
-  } else {
-    if (scanBadge) {
-      scanBadge.style.display = 'none';
-    }
+  } else if (scanBadge) {
+    scanBadge.style.display = 'none';
   }
 
   const photoWrapper = document.querySelector('.photo-wrapper');
@@ -63,6 +62,8 @@ function initPage() {
     photoWrapper.style.cursor = 'pointer';
     photoWrapper.title = 'Klik untuk scan biometrik ulang';
   }
+
+  setupBackSearch();
 }
 
 function updateCardData(member) {
@@ -87,8 +88,8 @@ function generateQRCode(text) {
   const qrContainer = document.getElementById("qrcode");
   if (!qrContainer) return;
   qrContainer.innerHTML = "";
-  
-  // Ukuran diperbesar dari 75x75 menjadi 115x115 dengan penanganan ketajaman piksel
+
+  // Ukuran diperbesar ke 115x115 px dengan batas toleransi error H
   qrcode = new QRCode(qrContainer, {
     text: text,
     width: 115,
@@ -145,6 +146,93 @@ function triggerLaserScan() {
     }, 1500);
 
   }, 2400);
+}
+
+function setupBackSearch() {
+  const input = document.getElementById('backSearchInput');
+  const suggestions = document.getElementById('backSearchSuggestions');
+
+  if (!input || !suggestions) return;
+
+  // Filter hasil saat mengetik
+  input.addEventListener('input', (e) => {
+    const query = e.target.value.trim().toLowerCase();
+    suggestions.innerHTML = '';
+
+    if (!query) {
+      suggestions.style.display = 'none';
+      return;
+    }
+
+    const filtered = membersData.filter(m => 
+      m.id.toLowerCase().includes(query) || 
+      m.name.toLowerCase().includes(query)
+    );
+
+    if (filtered.length === 0) {
+      suggestions.innerHTML = `<div class="suggestion-item"><span>ID tidak ditemukan</span></div>`;
+    } else {
+      filtered.forEach(member => {
+        const item = document.createElement('div');
+        item.className = 'suggestion-item';
+        item.innerHTML = `
+          <span class="sug-id-text">${member.id}</span>
+          <span class="sug-name-text">${member.name}</span>
+        `;
+        item.onclick = (e) => {
+          e.stopPropagation();
+          selectMember(member);
+          suggestions.style.display = 'none';
+          input.value = member.id;
+        };
+        suggestions.appendChild(item);
+      });
+    }
+
+    suggestions.style.display = 'block';
+  });
+
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      executeBackSearch();
+      suggestions.style.display = 'none';
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.back-search-box')) {
+      suggestions.style.display = 'none';
+    }
+  });
+}
+
+function executeBackSearch() {
+  const input = document.getElementById('backSearchInput');
+  const query = input.value.trim().toLowerCase();
+  
+  if (!query) return;
+
+  const found = membersData.find(m => 
+    m.id.toLowerCase() === query || 
+    m.name.toLowerCase().includes(query)
+  );
+
+  if (found) {
+    selectMember(found);
+  } else {
+    alert("ID atau Anggota tidak ditemukan!");
+  }
+}
+
+function selectMember(member) {
+  updateCardData(member);
+
+  // Perbarui URL browser tanpa reload
+  const newUrl = `${window.location.pathname}?id=${member.id}`;
+  window.history.pushState({ path: newUrl }, '', newUrl);
+
+  // Memicu scan laser ulang
+  triggerLaserScan();
 }
 
 window.onload = initPage;
