@@ -45,16 +45,13 @@ function initPage() {
 
   updateCardData(selectedMember);
 
-  // Pengecekan sessionStorage agar tidak muncul lagi saat refresh
   const hasScanned = sessionStorage.getItem('hasScanned');
   const scanBadge = document.getElementById('scanBadge');
 
   if (!hasScanned) {
-    // Jalankan scan hanya jika baru pertama kali membuka web
     setTimeout(triggerLaserScan, 400);
     sessionStorage.setItem('hasScanned', 'true');
   } else {
-    // Sembunyikan badge jika halaman di-refresh
     if (scanBadge) {
       scanBadge.style.display = 'none';
     }
@@ -90,10 +87,12 @@ function generateQRCode(text) {
   const qrContainer = document.getElementById("qrcode");
   if (!qrContainer) return;
   qrContainer.innerHTML = "";
+  
+  // Ukuran diperbesar dari 75x75 menjadi 115x115 dengan penanganan ketajaman piksel
   qrcode = new QRCode(qrContainer, {
     text: text,
-    width: 75,
-    height: 75,
+    width: 115,
+    height: 115,
     colorDark: "#000000",
     colorLight: "#ffffff",
     correctLevel: QRCode.CorrectLevel.H
@@ -112,7 +111,7 @@ function triggerLaserScan() {
   clearTimeout(fadeTimeout);
 
   if (scanBadge) {
-    scanBadge.style.display = 'flex'; // Tampilkan kembali jika sebelumnya tersembunyi
+    scanBadge.style.display = 'flex';
     scanBadge.classList.remove('fade-out');
   }
 
